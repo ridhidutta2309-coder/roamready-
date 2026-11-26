@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A frontend travel weather guide with five-day forecasts and destination-based clothing recommendations.">
+  <title>RoamReady — Travel Weather & Packing Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">R</span><span>roam<span class="brand-light">ready</span></span></a>
+    <nav aria-label="Main navigation">
+      <a href="#forecast">Forecast</a><a href="#packing">Packing guide</a><a href="#how-it-works">How it works</a>
+    </nav>
+    <a class="top-link" href="#forecast">Plan your trip <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR TRIP, WEATHER-READY</div>
+        <h1>Go further.<br><em>Pack smarter.</em></h1>
+        <p>Check the forecast for every stop on your journey and get practical clothing advice for sunny afternoons, chilly nights and unexpected rain.</p>
+        <a class="button button-primary" href="#forecast">Explore destination weather <span>↓</span></a>
+        <div class="hero-proof"><span>☀</span> One trip. Every destination. Better packing.</div>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of a mountain travel destination">
+        <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+        <div class="mountain mountain-back"></div><div class="mountain mountain-front"></div>
+        <div class="lake"></div>
+        <div class="visual-label label-top"><span>✦</span><div><b>Weather checked</b><small>Before you take off</small></div></div>
+        <div class="visual-label label-bottom"><span>↗</span><div><b>Pack with confidence</b><small>For every stop</small></div></div>
+        <div class="visual-stamp">THE WORLD<br>IS YOURS TO<br>EXPLORE.</div>
+      </div>
+    </section>
+
+    <section class="planner-section" id="forecast">
+      <div class="section-intro">
+        <div><div class="eyebrow">01 / DESTINATION FORECAST</div><h2>Where are you going?</h2></div>
+        <p>Add the cities on your itinerary. Select a destination to view its five-day forecast and packing advice.</p>
+      </div>
+
+      <div class="planner-card">
+        <form id="cityForm" class="city-form">
+          <label for="cityInput">ADD A DESTINATION</label>
+          <div class="search-row">
+            <div class="search-input"><span>⌖</span><input id="cityInput" type="text" placeholder="Search a city — e.g. Manali, Paris, Tokyo" autocomplete="off" required></div>
+            <button class="button button-primary" type="submit" id="addCityBtn">Add city <span>＋</span></button>
+          </div>
+        </form>
+        <div class="destination-area">
+          <div class="destination-caption"><span>YOUR ITINERARY</span><span id="cityCount">0 destinations</span></div>
+          <div id="destinationList" class="destination-list">
+            <span class="empty-destinations">Your added destinations will appear here.</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <section id="weatherPanel" class="weather-panel hidden" aria-live="polite">
+        <div class="weather-heading">
+          <div><div class="eyebrow">FIVE-DAY WEATHER OUTLOOK</div><h2 id="selectedCity">Destination</h2><p id="selectedRegion">Forecast for your selected destination</p></div>
+          <div class="forecast-badge"><span></span> LIVE FORECAST</div>
+        </div>
+        <div class="weather-summary">
+          <div class="summary-weather">
+            <div class="summary-condition"><span id="currentIcon">☀️</span><span id="currentCondition">Clear sky</span></div>
+            <div class="summary-temp"><strong id="currentTemp">--</strong><sup>°C</sup></div>
+            <p id="summaryLine">Typical daytime and nighttime conditions</p>
+          </div>
+          <div class="summary-metrics">
+            <div class="metric"><span class="metric-icon">↑</span><div><small>DAYTIME HIGH</small><b id="todayHigh">--°C</b></div></div>
+            <div class="metric"><span class="metric-icon">↓</span><div><small>NIGHTTIME LOW</small><b id="todayLow">--°C</b></div></div>
+            <div class="metric"><span class="metric-icon">💧</span><div><small>HUMIDITY</small><b id="todayHumidity">--%</b></div></div>
+            <div class="metric"><span class="metric-icon">☂</span><div><small>RAIN CHANCE</small><b id="todayRain">--%</b></div></div>
+          </div>
+        </div>
+
+        <div class="forecast-title"><div><h3>Next five days</h3><p>Daily highs, lows, humidity and rain probability</p></div><span class="unit-note">Temperature in °C</span></div>
+        <div id="forecastGrid" class="forecast-grid"></div>
+        <div class="swing-alert" id="swingAlert"><span class="swing-icon">↕</span><div><b>Day-to-night temperature check</b><p id="swingText">We’ll highlight large temperature changes between daytime and nighttime.</p></div><span class="swing-tag" id="swingTag">CHECKING</span></div>
+        <div class="advice-card">
+          <div class="advice-icon">✦</div>
+          <div class="advice-content"><div class="eyebrow">YOUR PERSONAL PACKING ADVICE</div><h3 id="adviceTitle">What should you pack?</h3><p id="adviceText">Clothing recommendations will appear here.</p><div id="packingItems" class="packing-items"></div></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="packing-section" id="packing">
+      <div class="section-intro">
+        <div><div class="eyebrow">02 / THE PACKING EDIT</div><h2>Dress for the forecast.</h2></div>
+        <p>A quick guide to help you choose the right layers, whether your itinerary brings sunshine, showers or mountain chill.</p>
+      </div>
+      <div class="packing-grid">
+        <article class="packing-tip"><div class="tip-illustration sunny">☀</div><div class="tip-kicker">WARM & SUNNY</div><h3>Keep it breathable</h3><p>Choose cotton or linen, sunglasses and a hat. Carry sunscreen and a light layer for evening breezes.</p><div class="tip-tags">Light shirts · Hat · Sunglasses</div></article>
+        <article class="packing-tip"><div class="tip-illustration cold">❄</div><div class="tip-kicker">COLD & MOUNTAIN AIR</div><h3>Layer up for the night</h3><p>Pack a sweater, warm socks and a windbreaker. Layers help when sunny afternoons turn into chilly evenings.</p><div class="tip-tags">Sweater · Windbreaker · Socks</div></article>
+        <article class="packing-tip"><div class="tip-illustration rainy">☂</div><div class="tip-kicker">RAINY & HUMID</div><h3>Expect the unexpected</h3><p>Carry a compact umbrella or rain jacket. Quick-dry clothes and shoes with grip make wet days easier.</p><div class="tip-tags">Rain jacket · Umbrella · Trainers</div></article>
+      </div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="how-copy"><div class="eyebrow">03 / SIMPLE BY DESIGN</div><h2>One less thing<br>to worry about.</h2><p>RoamReady uses destination weather data to turn a forecast into practical packing decisions. Add multiple cities and check each stop before you zip your suitcase.</p></div>
+      <div class="steps">
+        <div class="step"><span>01</span><div><b>Search your cities</b><p>Add each destination in your travel itinerary.</p></div></div>
+        <div class="step"><span>02</span><div><b>Check the five-day forecast</b><p>Compare highs, lows, humidity and rain chances.</p></div></div>
+        <div class="step"><span>03</span><div><b>Pack for the conditions</b><p>Use clothing tips and temperature-swing alerts.</p></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#"><span class="brand-mark">R</span><span>roam<span class="brand-light">ready</span></span></a><p>Travel weather and clothing recommendations, made simple.</p><span>Weather data: Open-Meteo</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
